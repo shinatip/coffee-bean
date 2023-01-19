@@ -25,6 +25,7 @@ connection.connect((err) => {
 });
 
 app.post("/create", (req, res) => {
+  console.log(req.body);
   const { party_Type, name, country, buy_price, sell_price } = req.body;
   try {
     connection.query(
@@ -36,6 +37,56 @@ app.post("/create", (req, res) => {
           return res.status(500).send();
         }
         return res.status(200).json({ massage: "Insert successfuly" });
+      }
+    );
+  } catch (err) {
+    console.error(err);
+    return res.status(500).send();
+  }
+});
+
+app.get("/findname", (req, res) => {
+  console.log(req.query.name);
+  try {
+    connection.query(
+      "SELECT * FROM trade_prices WHERE name = ?",
+      req.query.name,
+      (err, results, fields) => {
+        if (err) {
+          console.log("Error insert data: ", err);
+          return res.status(500).send();
+        }
+        return res.status(200).json(results);
+      }
+    );
+  } catch (err) {
+    console.error(err);
+    return res.status(500).send();
+  }
+});
+
+app.put("/update", (req, res) => {
+  console.log("/update", req.body);
+  console.log(req.body.party_Type);
+  // const [party_Type, country, buy_price, sell_price, name] = req.body;
+  // console.log(party_Type, country, buy_price, sell_price, name);
+  try {
+    connection.query(
+      `UPDATE trade_prices SET party_Type = ?, country = ?, buy_price= ?, sell_price= ? WHERE name = ?`,
+      [
+        req.body.party_Type,
+        req.body.country,
+        req.body.buy_price,
+        req.body.sell_price,
+        req.body.name,
+      ],
+      (err, results, fields) => {
+        if (err) {
+          console.log("Error insert data: ", err);
+          return res.status(500).send();
+        }
+        console.log(results);
+        return res.status(200).json();
       }
     );
   } catch (err) {

@@ -59,7 +59,6 @@ export default class InfoTable extends Component {
   };
 
   handleOnSearch = () => {
-    console.log("Click");
     fetch(
       `http://localhost:5001/data?name=${this.state.name}&country=${this.state.country}`,
       {

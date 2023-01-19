@@ -19,7 +19,7 @@ function App() {
             <Nav.Link href="/upload" style={{ padding: "20px" }}>
               Upload Document
             </Nav.Link>
-            <Nav.Link href="#pricing" style={{ padding: "20px" }}>
+            <Nav.Link href="/calculate" style={{ padding: "20px" }}>
               Calculator
             </Nav.Link>
           </Nav>
@@ -30,6 +30,7 @@ function App() {
         <Routes>
           <Route exact path="/" element={<InfoTable />}></Route>
           <Route path="/upload" element={<UploadData />}></Route>
+          <Route path="/calculate" element={<UploadData />}></Route>
         </Routes>
       </BrowserRouter>
     </div>
